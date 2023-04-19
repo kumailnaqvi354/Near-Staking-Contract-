@@ -1,6 +1,8 @@
+use std::collections::HashMap;
+
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{log, near_bindgen};
+use near_sdk::{log, near_bindgen, Timestamp};
 
 // Define the default message
 const DEFAULT_MESSAGE: &str = "Hello";
@@ -9,14 +11,16 @@ const DEFAULT_MESSAGE: &str = "Hello";
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
-    message: String,
+    balances: HashMap<String, u64>,
+    time : HashMap<String, Timestamp>,
+    total_staked: u64,
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
-    }
+impl Contract{
+    // fn default() -> Self{
+    //     Self{message: DEFAULT_MESSAGE.to_string()}
+    // }
 }
 
 // Implement the contract structure
@@ -33,6 +37,12 @@ impl Contract {
         self.message = message;
     }
 }
+
+
+
+
+
+
 
 /*
  * The rest of this file holds the inline tests for the code above
