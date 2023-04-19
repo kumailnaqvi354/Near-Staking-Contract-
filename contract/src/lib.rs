@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, log, near_bindgen};
+use near_sdk::{env, log, near_bindgen, Promise};
 
 // Define the default message
 // const DEFAULT_MESSAGE: &str = "Hello";
@@ -12,23 +12,42 @@ use near_sdk::{env, log, near_bindgen};
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
     balances: HashMap<String, u128>,
-    stakeTime: HashMap<String, u64>,
+    stake_time: HashMap<String, u64>,
     total_staked: u64,
+    token_id: String,
 }
 
 // Define the default, which automatically initializes the contract
+#[near_bindgen]
 impl Contract {
-    fn stake_tokens(mut self, user_wallet: String, amount: u64) {
-        let current_timestamp = env::block_timestamp();
-        self.balances.insert(env::current_account_id().to_string(), env::attached_deposit());
-        self.stakeTime.insert(user_wallet, current_timestamp);
-        self.total_staked += amount;
+    #[init]
+    pub fn new(token_id: String) -> Self {
+        Self {
+            balances: HashMap::new(),
+            stake_time: HashMap::new(),
+            total_staked: 0,
+            token_id,
+        }
     }
 }
 
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
+    fn stake_tokens(mut self, user_wallet: String, amount: u64){
+        let current_timestamp = env::block_timestamp();
+        self.balances.insert(env::current_account_id().to_string(), env::attached_deposit());
+        self.stake_time.insert(user_wallet, current_timestamp);
+        self.total_staked += amount;
+        
+        
+        }
+
+
+
+
+
+
     // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
     // pub fn get_greeting(&self) -> String {
     //     return self.message.clone();
