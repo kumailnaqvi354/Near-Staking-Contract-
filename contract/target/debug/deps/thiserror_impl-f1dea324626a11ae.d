@@ -1,0 +1,12 @@
+/workspace/Near-Staking-Contract-/contract/target/debug/deps/libthiserror_impl-f1dea324626a11ae.so: /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/lib.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/ast.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/attr.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/expand.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/fmt.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/generics.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/prop.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/valid.rs
+
+/workspace/Near-Staking-Contract-/contract/target/debug/deps/thiserror_impl-f1dea324626a11ae.d: /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/lib.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/ast.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/attr.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/expand.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/fmt.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/generics.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/prop.rs /workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/valid.rs
+
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/lib.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/ast.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/attr.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/expand.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/fmt.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/generics.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/prop.rs:
+/workspace/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.40/src/valid.rs:
