@@ -13,7 +13,7 @@ use near_sdk::{env, log, near_bindgen, Promise};
 pub struct Contract {
     balances: HashMap<String, u128>,
     stake_time: HashMap<String, u64>,
-    total_staked: u64,
+    total_staked: u128,
     token_id: String,
 }
 
@@ -34,12 +34,13 @@ impl Contract {
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
-    fn stake_tokens(mut self, user_wallet: String, amount: u64){
+    fn stake_tokens(mut self, user_wallet: String, amount: u128){
         let current_timestamp = env::block_timestamp();
-        self.balances.insert(env::current_account_id().to_string(), env::attached_deposit());
-        self.stake_time.insert(user_wallet, current_timestamp);
+        self.balances.insert(user_wallet.clone(), env::attached_deposit());
+        self.stake_time.insert(user_wallet.clone(), current_timestamp);
         self.total_staked += amount;
-        
+        Promise::new(env::current_account_id()).transfer(amount);
+
         
         }
 
