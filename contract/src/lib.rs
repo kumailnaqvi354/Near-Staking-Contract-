@@ -1,7 +1,9 @@
+use std::cmp::Ordering;
 use std::collections::HashMap;
 
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::serde_json::error;
 use near_sdk::{env, log, near_bindgen, Promise};
 
 // Define the default message
@@ -40,8 +42,14 @@ impl Contract {
         self.stake_time.insert(user_wallet.clone(), current_timestamp);
         self.total_staked += amount;
         Promise::new(env::current_account_id()).transfer(amount);
+        }
 
-        
+        fn calculate_reward(self, user_wallet: String) {
+         let mut is_staked = self.balances.get(&user_wallet.clone());
+         if is_staked <= Some(&0) {
+            log!("No staking");   
+         }
+         
         }
 
 
