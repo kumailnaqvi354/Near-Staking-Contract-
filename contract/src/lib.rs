@@ -46,18 +46,17 @@ impl Contract {
         }
 
         fn calculate_reward(self, user_wallet: String) {
-            let reward_rate:f128  = 0.0003;
+            let reward_rate:u128  = 3;
             let current_timestamp = env::block_timestamp();
 
-         let mut is_staked = self.balances.get(&user_wallet.clone()).unwrap();
+         let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
          }
-         let mut stake_time = self.stake_time.get(&user_wallet.clone()).unwrap();
-         let mut avg_stake_time = current_timestamp - stake_time
-         let reward_amount = reward_rate * is_staked * avg_stake_time / self.total_staked; 
+         let stake_time = self.stake_time.get(&user_wallet.clone()).unwrap();
+         let avg_stake_time = current_timestamp - stake_time;
+         let reward_amount =( reward_rate/1000) * is_staked *( avg_stake_time as u128 )/ self.total_staked; 
 
-            
         }
 
 
