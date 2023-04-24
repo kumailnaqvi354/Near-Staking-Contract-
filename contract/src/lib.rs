@@ -5,7 +5,7 @@ use std::u128;
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::serde_json::error;
-use near_sdk::{env, log, near_bindgen, Promise};
+use near_sdk::{env, log, near_bindgen, Promise, AccountId};
 
 // Define the default message
 // const DEFAULT_MESSAGE: &str = "Hello";
@@ -17,7 +17,7 @@ pub struct Contract {
     balances: HashMap<String, u128>,
     stake_time: HashMap<String, u64>,
     total_staked: u128,
-    token_id: String,
+    token_id: AccountId,
 }
 
 // Define the default, which automatically initializes the contract
@@ -32,6 +32,10 @@ impl Contract {
             token_id,
         }
     }
+}
+
+pub trait TokenTransfer {
+    fn transfer(&mut self, recipient: AccountId, amount: u128);
 }
 
 // Implement the contract structure
@@ -64,11 +68,16 @@ impl Contract {
          if is_staked <= &0 {
             log!("No staking");   
          }
-         let reward_amount: u128 = calculate_reward();
-        
-
+         let reward_amount: u128 = self.calculate_reward(user_wallet);
+         let args = "data".to_string();
+        let promise =  Promise::new(self.token_id.clone())
+         .function_call(
+            &(b"transfer").to_string(),
+             args.into_bytes(),
+             env::attached_deposit(),
+             env::prepaid_gas() / 2,
+         );
         }
-
 
 
 
