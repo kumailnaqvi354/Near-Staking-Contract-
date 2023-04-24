@@ -59,7 +59,15 @@ impl Contract {
          return reward_amount;
         }
 
+        fn claim_reward_tokens(self, user_wallet:String){      
+         let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
+         if is_staked <= &0 {
+            log!("No staking");   
+         }
+         let reward_amount: u128 = calculate_reward();
         
+
+        }
 
 
 
