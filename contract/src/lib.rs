@@ -45,10 +45,10 @@ impl Contract {
         Promise::new(env::current_account_id()).transfer(amount);
         }
 
-        fn calculate_reward(self, user_wallet: String) {
+        fn calculate_reward(self, user_wallet: String) -> u128{
             let reward_rate:u128  = 3;
             let current_timestamp = env::block_timestamp();
-
+            
          let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
@@ -56,8 +56,10 @@ impl Contract {
          let stake_time = self.stake_time.get(&user_wallet.clone()).unwrap();
          let avg_stake_time = current_timestamp - stake_time;
          let reward_amount =( reward_rate/1000) * is_staked *( avg_stake_time as u128 )/ self.total_staked; 
-
+         return reward_amount;
         }
+
+        
 
 
 
