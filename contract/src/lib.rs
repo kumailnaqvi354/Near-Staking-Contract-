@@ -79,7 +79,9 @@ impl Contract {
         }
 
 
-
+        fn unstake_tokens(self, user_wallet: AccountId){
+            
+        }
 
     // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
     // pub fn get_greeting(&self) -> String {
