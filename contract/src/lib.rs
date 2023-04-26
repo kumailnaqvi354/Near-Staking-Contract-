@@ -1,10 +1,8 @@
-use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::u128;
 
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::serde_json::error;
 use near_sdk::{env, log, near_bindgen, Promise, AccountId};
 
 // Define the default message
@@ -24,7 +22,7 @@ pub struct Contract {
 #[near_bindgen]
 impl Contract {
     #[init]
-    pub fn new(token_id: String) -> Self {
+    pub fn new(token_id: AccountId) -> Self {
         Self {
             balances: HashMap::new(),
             stake_time: HashMap::new(),
@@ -70,6 +68,7 @@ impl Contract {
          }
          let reward_amount: u128 = self.calculate_reward(user_wallet);
          let args = "data".to_string();
+         self.stake_time.insert(user_wallet, env::block_timestamp());
         let promise =  Promise::new(self.token_id.clone())
          .function_call(
             &(b"transfer").to_string(),
@@ -78,7 +77,6 @@ impl Contract {
              env::prepaid_gas() / 2,
          );
         }
-
 
 
 
