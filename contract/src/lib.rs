@@ -80,7 +80,14 @@ impl Contract {
 
 
         fn unstake_tokens(self, user_wallet: AccountId){
-            
+        let is_staked = self.balances.get(&user_wallet.to_string()).unwrap();
+         if is_staked <= &0 {
+            log!("No staking");   
+         }
+         self.claim_reward_tokens(user_wallet.to_string());
+         self.balances.remove(&user_wallet.to_string());
+         self.stake_time.remove(&user_wallet.to_string());
+
         }
 
     // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
