@@ -39,6 +39,7 @@ pub trait TokenTransfer {
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
+    
     fn stake_tokens(mut self, user_wallet: String, amount: u128){
         let current_timestamp = env::block_timestamp();
         self.balances.insert(user_wallet.clone(), env::attached_deposit());
@@ -47,7 +48,7 @@ impl Contract {
         Promise::new(env::current_account_id()).transfer(amount);
         }
 
-        fn calculate_reward(&mut self, user_wallet: String) -> u128{
+        fn calculate_reward(self, user_wallet: String) -> u128{
             let reward_rate:u128  = 3;
             let current_timestamp = env::block_timestamp();
             
@@ -61,25 +62,19 @@ impl Contract {
          return reward_amount;
         }
 
-        fn claim_reward_tokens(&mut self, mut user_wallet:String){      
+        fn claim_reward_tokens(self, user_wallet:String){      
          let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
          }
          let reward_amount: u128 = self.calculate_reward(user_wallet);
          let args = "data".to_string();
-        //  self.stake_time.insert(user_wallet.clone(), env::block_timestamp());
-        // let promise =  Promise::new(self.token_id.clone())
-        //  .function_call(
-        //     &(b"transfer").to_string(),
-        //      args.into_bytes(),
-        //      env::attached_deposit(),
-        //      env::prepaid_gas() / 2,
-        //  );
+         self.stake_time.insert(user_wallet, env::block_timestamp());
+        
         }
 
 
-        fn unstake_tokens(&mut self, user_wallet: AccountId){
+        fn unstake_tokens(mut self, mut user_wallet: AccountId){
         let is_staked = self.balances.get(&user_wallet.to_string()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
