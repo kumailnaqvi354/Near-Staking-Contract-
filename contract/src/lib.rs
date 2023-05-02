@@ -40,7 +40,7 @@ pub trait TokenTransfer {
 #[near_bindgen]
 impl Contract {
     
-    fn stake_tokens(mut self, user_wallet: String, amount: u128){
+    fn stake_tokens(&mut self, user_wallet: String, amount: u128){
         let current_timestamp = env::block_timestamp();
         self.balances.insert(user_wallet.clone(), env::attached_deposit());
         self.stake_time.insert(user_wallet.clone(), current_timestamp);
@@ -48,7 +48,7 @@ impl Contract {
         Promise::new(env::current_account_id()).transfer(amount);
         }
 
-        fn calculate_reward(self, user_wallet: String) -> u128{
+        fn calculate_reward(&mut self, user_wallet: String) -> u128{
             let reward_rate:u128  = 3;
             let current_timestamp = env::block_timestamp();
             
@@ -62,7 +62,7 @@ impl Contract {
          return reward_amount;
         }
 
-        fn claim_reward_tokens(self, user_wallet:String){      
+        fn claim_reward_tokens(&mut self, user_wallet:String){      
          let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
@@ -74,7 +74,7 @@ impl Contract {
         }
 
 
-        fn unstake_tokens(mut self, mut user_wallet: AccountId){
+        fn unstake_tokens(&mut self, mut user_wallet: AccountId){
         let is_staked = self.balances.get(&user_wallet.to_string()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
