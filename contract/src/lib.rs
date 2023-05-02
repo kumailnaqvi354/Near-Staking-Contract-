@@ -62,14 +62,14 @@ impl Contract {
          return reward_amount;
         }
 
-        fn claim_reward_tokens(&mut self, user_wallet:String){      
+        fn claim_reward_tokens(&mut self, mut user_wallet:String){      
          let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
          }
-         let reward_amount: u128 = self.calculate_reward(user_wallet);
+         let reward_amount: u128 = self.calculate_reward(user_wallet.clone());
          let args = "data".to_string();
-         self.stake_time.insert(user_wallet, env::block_timestamp());
+         self.stake_time.insert(user_wallet.clone(), env::block_timestamp());
         
         }
 
