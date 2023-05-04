@@ -40,10 +40,10 @@ pub trait TokenTransfer {
 #[near_bindgen]
 impl Contract {
     
-    fn stake_tokens(&mut self, user_wallet: String, amount: u128){
+    fn stake_tokens(&mut self, user_wallet: AccountId, amount: u128){
         let current_timestamp = env::block_timestamp();
-        self.balances.insert(user_wallet.clone(), env::attached_deposit());
-        self.stake_time.insert(user_wallet.clone(), current_timestamp);
+        self.balances.insert(user_wallet.clone().to_string(), env::attached_deposit());
+        self.stake_time.insert(user_wallet.clone().to_string(), current_timestamp);
         self.total_staked += amount;
         Promise::new(env::current_account_id()).transfer(amount);
         }
@@ -62,26 +62,31 @@ impl Contract {
          return reward_amount;
         }
 
-        fn claim_reward_tokens(&mut self, mut user_wallet:String){      
-         let is_staked = self.balances.get(&user_wallet.clone()).unwrap();
+        fn claim_reward_tokens(&mut self, mut user_wallet:AccountId){      
+         let is_staked = self.balances.get(&user_wallet.clone().to_string()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
          }
-         let reward_amount: u128 = self.calculate_reward(user_wallet.clone());
-         let args = "data".to_string();
-         self.stake_time.insert(user_wallet.clone(), env::block_timestamp());
+         let reward_amount: u128 = self.calculate_reward(user_wallet.clone().to_string());
+         self.stake_time.insert(user_wallet.clone().to_string(), env::block_timestamp());
+         Promise::new(user_wallet).transfer(reward_amount);
+
         
         }
 
 
-        fn unstake_tokens(&mut self, mut user_wallet: AccountId){
-        let is_staked = self.balances.get(&user_wallet.to_string()).unwrap();
+        fn unstake_tokens(mut self, user_wallet: AccountId){
+            let mut account = user_wallet;
+        let is_staked = self.balances.get(&account.to_string()).unwrap();
          if is_staked <= &0 {
             log!("No staking");   
          }
-         self.claim_reward_tokens(user_wallet.to_string());
-         self.balances.remove(&user_wallet.to_string());
-         self.stake_time.remove(&user_wallet.to_string());
+        //  self.claim_reward_tokens(account);
+        //  self.balances.remove(&user_wallet.to_string());
+        //  self.stake_time.remove(&account.to_string());
+                  let amount: u128 = is_staked + 0;
+
+        //  Promise::new(user_wallet).transfer(amount);
 
         }
 
