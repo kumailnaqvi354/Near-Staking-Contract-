@@ -81,12 +81,12 @@ impl Contract {
          if is_staked <= &0 {
             log!("No staking");   
          }
-        //  self.claim_reward_tokens(account);
-        //  self.balances.remove(&user_wallet.to_string());
-        //  self.stake_time.remove(&account.to_string());
+         self.claim_reward_tokens(account);
+         self.balances.remove(&user_wallet.to_string());
+         self.stake_time.remove(&account.to_string());
                   let amount: u128 = is_staked + 0;
 
-        //  Promise::new(user_wallet).transfer(amount);
+         Promise::new(user_wallet).transfer(amount);
 
         }
 
